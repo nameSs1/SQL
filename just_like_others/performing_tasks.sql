@@ -1,8 +1,8 @@
 
--- Р’С‹РїРѕР»РЅРµРЅРёРµ Р·Р°РґР°С‡ for just_like_others
+-- Выполнение задач for just_like_others
 
 
---  Р’С‹РІРѕРґРёС‚ СЃРїРѕСЂС‚СЃРјРµРЅРѕРІ РєРѕС‚РѕСЂС‹Рµ СѓС‡Р°СЃС‚РІРѕРІР°Р»Рё РІ РѕР±РѕРёС… СЃРѕСЂРµРІРЅРѕРІР°РЅРёСЏС…
+--  Выводит спортсменов которые участвовали в обоих соревнованиях
 
 WITH CTE_Result AS 
 (
@@ -21,14 +21,14 @@ SELECT s.FirstName, s.LastName, s.YearOfBirth, s.Gender
 FROM CTE_TwoPool AS t 
 JOIN dbo.Swimmer AS s ON t.SwimmerID = s.SwimmerID AND t.[Count] = 2
 
---2.1 РєР°Р¶РґРѕРµ РёРјСЏ СЃРєРѕР»СЊРєРѕ СЂР°Р· РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ СЃСЂРµРґРё СЃРїРѕСЂС‚СЃРјРµРЅРѕРІ
+--2.1 каждое имя сколько раз встречается среди спортсменов
 
 SELECT FirstName, COUNT(FirstName) CountName
 FROM dbo.Swimmer
 GROUP BY FirstName
 ORDER BY CountName DESC
 
---2.2. СЃРєРѕР»СЊРєРѕ РјРµРґР°Р»РµР№ Сѓ РєР°Р¶РґРѕРіРѕ РёР· СЃРїРѕСЂС‚СЃРјРµРЅРѕРІ РІ РЅР°С€РµР№ Р±Р°Р·Рµ РґР°РЅРЅС‹С…/С„Р°Р№Р»Рµ
+--2.2. сколько медалей у каждого из спортсменов в нашей базе данных/файле
 
 WITH CTE_Result AS 
 (
@@ -41,9 +41,9 @@ SELECT s.FirstName, s.LastName, s.Gender, s.YearOfBirth,
 FROM CTE_Result AS r
 JOIN Swimmer AS s ON r.SwimmerID = s.SwimmerID
 GROUP BY s.FirstName, s.LastName, s.Gender, s.YearOfBirth 
-ORDER BY CountMedals DESC
+ORDER BY CountMedals
 
--- 3.1 РІС‹РІРµСЃС‚Рё Р’РЎР•РҐ СЃРїРѕСЂСЃРјРµРЅРѕРІ, Р»СѓС‡С€РёР№ СЂРµР·СѓР»СЊС‚Р°С‚ РґР»СЏ РЅРёС… Рё СЃС‚РёР»СЊ РїР»Р°РІР°РЅРёСЏ/РґРёСЃС‚Р°РЅС†РёСЋ РЅР° РєРѕС‚РѕСЂРѕР№ СЌС‚РѕС‚ Р»СѓС‡С€РёР№ СЂРµР·СѓР»СЊС‚Р°С‚ Р±С‹Р» РїРѕР»СѓС‡РµРЅ
+-- 3.1 вывести ВСЕХ спорсменов, лучший результат для них и стиль плавания/дистанцию на которой этот лучший результат был получен
 
 WITH CTE_Result AS 
 (
